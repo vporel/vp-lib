@@ -1,0 +1,24 @@
+{
+  "name": "@vp-lib/nestjs-misc",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "vporel",
+    "typescript",
+    "vp-lib",
+    "nestjs",
+    "misc"
+  ],
+  "author": "Vivian NKOUANANG",
+  "scripts": {
+    "build": "tsc"
+  },
+  "description": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0",
+		"@nestjs/testing": "^10.0.0"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "@vp-lib/react-dom",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "vporel",
+    "typescript",
+    "vp-lib",
+    "react",
+    "react-dom",
+    "material-ui",
+    "mui"
+  ],
+  "author": "Vivian NKOUANANG",
+  "scripts": {
+    "build": "tsc"
+  },
+  "description": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "dependencies": {
+    "@mui/icons-material": "^6.4.6",
+    "@mui/material": "^6.4.6",
+    "compressorjs": "^1.2.1",
+    "cropperjs": "^1.6.2",
+    "formik": "^2.4.6",
+    "react-tag-autocomplete": "^7.5.0",
+    "uniqid": "^5.4.0"
+  }
+}

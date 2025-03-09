@@ -1,0 +1,22 @@
+{
+  "name": "@vp-lib/mongoose",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "vporel",
+    "typescript",
+    "vp-lib",
+    "mongoose"
+  ],
+  "author": "Vivian NKOUANANG",
+  "scripts": {
+    "build": "tsc"
+  },
+  "description": "",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^8.10.1"
+  }
+}

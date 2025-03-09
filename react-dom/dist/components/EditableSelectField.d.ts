@@ -1,0 +1,22 @@
+import { SxProps, Theme } from "@mui/material";
+import { SelectOption } from "./forms.types";
+export type EditableSelectFieldProps = {
+    options: SelectOption[];
+    groups?: boolean;
+    sort?: boolean;
+    exclude?: any[];
+    required?: boolean;
+    fullWidth?: boolean;
+    label?: string;
+    name: string;
+    value?: any;
+    onChange?: (value: any) => void;
+    onBlur?: Function;
+    helperText?: string;
+    error?: boolean;
+    variant?: "filled" | "outlined" | "standard";
+    InputProps?: object;
+    sx?: SxProps<Theme>;
+    className?: string;
+};
+export default function EditableSelectField({ options, groups, sort, exclude, required, fullWidth, label, name, value, onChange, onBlur, helperText, error, variant, InputProps, className, ...props }: EditableSelectFieldProps): import("react/jsx-runtime").JSX.Element;

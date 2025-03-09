@@ -1,0 +1,24 @@
+{
+  "name": "@vp-lib/express",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [
+    "vporel",
+    "typescript",
+    "vp-lib",
+    "express",
+    "express-misc"
+  ],
+  "license": "MIT",
+  "author": "Vivian NKOUANANG",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mime-types": "^2.1.35"
+  },
+  "module": "dist/index.js"
+}
