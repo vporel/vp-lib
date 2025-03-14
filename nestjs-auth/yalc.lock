@@ -1,0 +1,25 @@
+{
+  "version": "v1",
+  "packages": {
+    "@vporel/core": {
+      "signature": "a97a719383315adcd85dd20627d486ea",
+      "file": true,
+      "replaced": "file:../core"
+    },
+    "@vporel/handlebars": {
+      "signature": "5d8f2040372429e19c8494b488be25b0",
+      "file": true,
+      "replaced": "file:../handlebars"
+    },
+    "@vporel/nestjs-mailer": {
+      "signature": "25b1ec2ad24310ad5321f3902e0718ed",
+      "file": true,
+      "replaced": "file:../nestjs-mailer"
+    },
+    "@vporel/nestjs-third-party-auth": {
+      "signature": "0ea52fdf0a9bcaec07763fb15fe220f5",
+      "file": true,
+      "replaced": "file:../nestjs-third-party-auth"
+    }
+  }
+}

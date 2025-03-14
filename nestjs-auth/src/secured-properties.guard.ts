@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Inject, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { SECURED_PROPERTIES_KEY } from "./secured-properties.decorator";
-import { getKeysDeepJoined } from "@vp-lib/core";
+import { getKeysDeepJoined } from "@vporel/core";
 import { IUserFinder } from "./user-finder.interface";
 
 /**

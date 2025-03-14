@@ -1,4 +1,4 @@
-import { MailerService } from "@vp-lib/nestjs-mailer";
+import { MailerService } from "@vporel/nestjs-mailer";
 import { AuthModuleOptions } from "./auth.module";
 import { IUserFinder } from "./user-finder.interface";
 export declare class EmailDto {

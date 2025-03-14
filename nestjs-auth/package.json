@@ -1,5 +1,5 @@
 {
-  "name": "@vp-lib/nestjs-auth",
+  "name": "@vporel/nestjs-auth",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -18,10 +18,10 @@
   "description": "",
   "license": "MIT",
   "dependencies": {
-    "@vp-lib/core": "file:../core",
-    "@vp-lib/handlebars": "file:../handlebars",
-    "@vp-lib/nestjs-mailer": "file:../nestjs-mailer",
-    "@vp-lib/nestjs-third-party-auth": "file:../nestjs-third-party-auth",
+    "@vporel/core": "file:.yalc/@vporel/core",
+    "@vporel/handlebars": "file:.yalc/@vporel/handlebars",
+    "@vporel/nestjs-mailer": "file:.yalc/@vporel/nestjs-mailer",
+    "@vporel/nestjs-third-party-auth": "file:.yalc/@vporel/nestjs-third-party-auth",
     "class-validator": "^0.14.1"
   },
   "peerDependencies": {

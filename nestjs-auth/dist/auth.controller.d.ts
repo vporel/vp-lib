@@ -1,5 +1,5 @@
 import { AuthResult, AuthService } from "./auth.service";
-import { ThirdPartyAuthService } from "@vp-lib/nestjs-third-party-auth";
+import { ThirdPartyAuthService } from "@vporel/nestjs-third-party-auth";
 declare class AuthMethodDto {
     methodName: "email" | "google";
     email?: string;

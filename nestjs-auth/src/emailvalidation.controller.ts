@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, HttpException, HttpStatus, Inject, Post, Res, UseGuards } from "@nestjs/common";
 import { IsEmail, IsNumber } from "class-validator";
-import { MailerService } from "@vp-lib/nestjs-mailer";
-import { compileTemplate } from "@vp-lib/handlebars";
+import { MailerService } from "@vporel/nestjs-mailer";
+import { compileTemplate } from "@vporel/handlebars";
 import { CurrentUser, CurrentUserClass } from "./auth.decorators";
 import { AuthGuard } from "./auth.guard";
 import { AuthModuleOptions } from "./auth.module";

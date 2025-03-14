@@ -1,6 +1,6 @@
 import { Provider } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ThirdPartyAuthModuleOptions } from '@vp-lib/nestjs-third-party-auth';
+import { ThirdPartyAuthModuleOptions } from '@vporel/nestjs-third-party-auth';
 import { AuthGuard } from './auth.guard';
 import { SecuredPropertiesGuard } from './secured-properties.guard';
 export type AuthModuleOptions = {
@@ -19,7 +19,7 @@ export declare class AuthModule {
     static forRoot(options: AuthModuleOptions): {
         module: typeof AuthModule;
         imports: import("@nestjs/common").DynamicModule[];
-        providers: (typeof AuthService | typeof AuthGuard | typeof SecuredPropertiesGuard | {
+        providers: (typeof AuthGuard | typeof AuthService | typeof SecuredPropertiesGuard | {
             provide: string;
             useValue: AuthModuleOptions;
             useClass?: undefined;

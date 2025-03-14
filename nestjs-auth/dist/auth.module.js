@@ -13,7 +13,7 @@ const auth_controller_1 = require("./auth.controller");
 const jwt_1 = require("@nestjs/jwt");
 const auth_service_1 = require("./auth.service");
 const emailvalidation_controller_1 = require("./emailvalidation.controller");
-const nestjs_third_party_auth_1 = require("@vp-lib/nestjs-third-party-auth");
+const nestjs_third_party_auth_1 = require("@vporel/nestjs-third-party-auth");
 const auth_guard_1 = require("./auth.guard");
 const secured_properties_guard_1 = require("./secured-properties.guard");
 let AuthModule = exports.AuthModule = AuthModule_1 = class AuthModule {

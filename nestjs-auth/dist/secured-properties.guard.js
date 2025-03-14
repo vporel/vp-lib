@@ -16,7 +16,7 @@ exports.SecuredPropertiesGuard = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const secured_properties_decorator_1 = require("./secured-properties.decorator");
-const core_2 = require("@vp-lib/core");
+const core_2 = require("@vporel/core");
 /**
  * Can be used to force the user to provide a password to update some properties
  */

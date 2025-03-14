@@ -1,0 +1,29 @@
+{
+  "name": "@vporel/nestjs-mailer",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "vporel",
+    "typescript",
+    "vp-lib",
+    "nestjs",
+    "mailer"
+  ],
+  "author": "Vivian NKOUANANG",
+  "scripts": {
+    "build": "tsc"
+  },
+  "description": "",
+  "license": "MIT",
+  "dependencies": {
+    "node-mailjet": "^6.0.6",
+    "nodemailer": "^6.10.0"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/testing": "^10.0.0"
+  },
+  "yalcSig": "25b1ec2ad24310ad5321f3902e0718ed"
+}

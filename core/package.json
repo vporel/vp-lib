@@ -1,5 +1,5 @@
 {
-  "name": "@vp-lib/core",
+  "name": "@vporel/core",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -19,5 +19,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.10"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

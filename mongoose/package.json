@@ -1,5 +1,5 @@
 {
-  "name": "@vp-lib/mongoose",
+  "name": "@vporel/mongoose",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.js",

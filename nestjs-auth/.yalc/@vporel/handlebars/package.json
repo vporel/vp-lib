@@ -1,0 +1,23 @@
+{
+  "name": "@vporel/handlebars",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "vporel",
+    "typescript",
+    "vp-lib",
+    "handlebars"
+  ],
+  "author": "Vivian NKOUANANG",
+  "scripts": {
+    "build": "tsc"
+  },
+  "description": "",
+  "license": "MIT",
+  "dependencies": {
+    "handlebars": "^4.7.8"
+  },
+  "yalcSig": "5d8f2040372429e19c8494b488be25b0"
+}

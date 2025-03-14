@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmailValidationController = exports.EmailAndCodeDto = exports.EmailDto = void 0;
 const common_1 = require("@nestjs/common");
 const class_validator_1 = require("class-validator");
-const nestjs_mailer_1 = require("@vp-lib/nestjs-mailer");
-const handlebars_1 = require("@vp-lib/handlebars");
+const nestjs_mailer_1 = require("@vporel/nestjs-mailer");
+const handlebars_1 = require("@vporel/handlebars");
 const auth_decorators_1 = require("./auth.decorators");
 const auth_guard_1 = require("./auth.guard");
 class EmailDto {

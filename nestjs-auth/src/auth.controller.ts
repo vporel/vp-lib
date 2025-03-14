@@ -3,7 +3,7 @@ import { AuthResult, AuthService } from "./auth.service";
 import { AuthGuard } from "./auth.guard";
 import { CurrentUser, CurrentUserClass } from "./auth.decorators";
 import { IsEmail, IsIn, IsNotEmpty, IsString, ValidateIf, ValidateNested } from "class-validator";
-import { ThirdPartyAuthService } from "@vp-lib/nestjs-third-party-auth";
+import { ThirdPartyAuthService } from "@vporel/nestjs-third-party-auth";
 
 class AuthMethodDto{
     @IsString()

@@ -1,5 +1,5 @@
 {
-  "name": "@vp-lib/nestjs-third-party-auth",
+  "name": "@vporel/nestjs-third-party-auth",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.js",

@@ -3,7 +3,7 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { EmailValidationController } from './emailvalidation.controller';
-import { ThirdPartyAuthModule, ThirdPartyAuthModuleOptions } from '@vp-lib/nestjs-third-party-auth';
+import { ThirdPartyAuthModule, ThirdPartyAuthModuleOptions } from '@vporel/nestjs-third-party-auth';
 import { AuthGuard } from './auth.guard';
 import { SecuredPropertiesGuard } from './secured-properties.guard';
 

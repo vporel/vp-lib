@@ -18,7 +18,7 @@ const auth_service_1 = require("./auth.service");
 const auth_guard_1 = require("./auth.guard");
 const auth_decorators_1 = require("./auth.decorators");
 const class_validator_1 = require("class-validator");
-const nestjs_third_party_auth_1 = require("@vp-lib/nestjs-third-party-auth");
+const nestjs_third_party_auth_1 = require("@vporel/nestjs-third-party-auth");
 class AuthMethodDto {
     methodName;
     email;
