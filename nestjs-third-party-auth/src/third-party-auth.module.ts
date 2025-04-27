@@ -1,8 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { GoogleService } from './third-party.google.service';
 import { ThirdPartyAuthService } from './third-party-auth.service';
 
-export const APIS_CONFIG_KEY = "APIS_CONFIG";
 export type ApisConfig = {
   google?: {
     clientId: string;
@@ -14,7 +13,7 @@ export type ThirdPartyAuthModuleOptions = {
   apis: ApisConfig
 }
 
-
+@Global()
 @Module({})
 export class ThirdPartyAuthModule {
   static register(options: ThirdPartyAuthModuleOptions) {
@@ -22,7 +21,7 @@ export class ThirdPartyAuthModule {
       module: ThirdPartyAuthModule,
       providers: [
         {
-          provide: APIS_CONFIG_KEY,
+          provide: "THIRD_PARTY_APIS_CONFIG",
           useValue: options.apis
         },
         ThirdPartyAuthService,

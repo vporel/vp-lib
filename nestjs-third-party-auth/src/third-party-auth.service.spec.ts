@@ -5,7 +5,6 @@
 
 import { Test } from "@nestjs/testing";
 import { ThirdPartyAuthService } from "./third-party-auth.service";
-import { APIS_CONFIG_KEY } from "./third-party-auth.module";
 import { GoogleService } from "./third-party.google.service";
 
 describe("third-party-auth.service", () => {
@@ -15,7 +14,7 @@ describe("third-party-auth.service", () => {
         const module = await Test.createTestingModule({
             providers: [
                 {
-                    provide: APIS_CONFIG_KEY,
+                    provide: "THIRD_PARTY_APIS_CONFIG",
                     useValue: {}
                 },
                 ThirdPartyAuthService,

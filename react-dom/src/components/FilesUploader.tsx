@@ -3,7 +3,7 @@ import { Box, IconButton, Typography, TypographyProps } from "@mui/material";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import PlusIcon from "@mui/icons-material/Add";
 import PlusCircleIcon from "@mui/icons-material/AddCircleOutline";
-import FileUploader, { FileUploadError } from "../classes/FileUploader";
+import { FileUploader, FileUploadError } from "@vporel/dom";
 import FileIcon from "@mui/icons-material/InsertDriveFile"
 import PdfFileIcon from "@mui/icons-material/PictureAsPdf";
 import FlexBox from "./FlexBox";

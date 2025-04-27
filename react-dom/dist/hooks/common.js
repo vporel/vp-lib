@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useRefreshKey = exports.useScreenSize = exports.useToggle = exports.useBooleanState = void 0;
 const react_1 = require("react");
-const material_1 = require("@mui/material");
 function useBooleanState(defaultValue = false) {
     const [value, setValue] = (0, react_1.useState)(defaultValue);
     return [
@@ -40,14 +39,19 @@ function parseSearchParamsForFilters(keys, searchParams, defaultFilters, options
     }
     return values;
 }
-function useScreenSize() {
-    const theme = (0, material_1.useTheme)();
-    const xs = (0, material_1.useMediaQuery)(theme.breakpoints.down("sm"));
-    const sm = (0, material_1.useMediaQuery)(theme.breakpoints.between("sm", "md"));
-    const md = (0, material_1.useMediaQuery)(theme.breakpoints.between("md", "lg"));
-    const lg = (0, material_1.useMediaQuery)(theme.breakpoints.between("lg", "xl"));
-    const xl = (0, material_1.useMediaQuery)(theme.breakpoints.up("xl"));
-    return { xs, sm, md, lg, xl };
+/**
+ *
+ * @param breakpoints Breakpoints in pixels, each number is the minimum for the level,
+ * @returns
+ */
+function useScreenSize(breakpoints = { sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1400 }) {
+    const xs = window.innerWidth < breakpoints.sm;
+    const sm = !xs && window.innerWidth < breakpoints.md;
+    const md = !sm && window.innerWidth < breakpoints.lg;
+    const lg = !md && window.innerWidth < breakpoints.xl;
+    const xl = !lg && window.innerWidth < breakpoints.xxl;
+    const xxl = !xl;
+    return { xs, sm, md, lg, xl, xxl };
 }
 exports.useScreenSize = useScreenSize;
 /**

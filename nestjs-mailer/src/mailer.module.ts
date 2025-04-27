@@ -20,8 +20,8 @@ export type MailerOptions = {
   },
 }
 
-@Module({})
 @Global()
+@Module({})
 export class MailerModule {
   static forRoot(options: MailerOptions){
     if(options.apiService == "gmail" && !options.gmail) throw new Error("The configuration is missing for the service 'gmail'")

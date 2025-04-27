@@ -1,12 +1,7 @@
-import { AuthResult, AuthService } from "./auth.service";
+import { AuthMethodDto, AuthResult, AuthService } from "./auth.service";
 import { ThirdPartyAuthService } from "@vporel/nestjs-third-party-auth";
-declare class AuthMethodDto {
-    methodName: "email" | "google";
-    email?: string;
-    accessToken?: string;
-}
 declare class SigninDto extends AuthMethodDto {
-    password: string;
+    password?: string;
 }
 /**
  * @author Vivian NKOUANANG (https://github.com/vporel) <dev.vporel@gmail.com>

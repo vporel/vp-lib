@@ -1,6 +1,6 @@
 import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { ThirdPartyService } from "./third-party.service.abs";
-import { APIS_CONFIG_KEY, ApisConfig } from "./third-party-auth.module";
+import { ApisConfig } from "./third-party-auth.module";
 
 type GooglePayload = {
     /** The user's unique Google ID */
@@ -18,7 +18,7 @@ type GooglePayload = {
 @Injectable()
 export class GoogleService extends ThirdPartyService<GooglePayload> {
 
-    constructor(@Inject(forwardRef(() =>  APIS_CONFIG_KEY)) readonly apis: ApisConfig){
+    constructor(@Inject(forwardRef(() =>  "THIRD_PARTY_APIS_CONFIG")) readonly apis: ApisConfig){
         super()
 
     }

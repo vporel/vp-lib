@@ -2,14 +2,14 @@
  * @author Vivian NKOUANANG (https://github.com/vporel) <dev.vporel@gmail.com>
  * @description This package contains components, hooks, and utilities for React applications
  */
-export * from "./formik";
-export * from "./classes/FileUploader";
-export { default as FileUploader } from "./classes/FileUploader";
 export { default as ButtonWithLoading } from "./components/ButtonWithLoading";
 export { default as CircularProgressWithLabel } from "./components/CircularProgressWithLabel";
 export { default as CustomDrawer } from "./components/CustomDrawer";
+export * from "./components/CustomRadioGroupWithDetails";
 export { default as CustomRadioGroupWithDetails } from "./components/CustomRadioGroupWithDetails";
+export * from "./components/DialogBoxesContainer";
 export { default as DialogBoxesContainer } from "./components/DialogBoxesContainer";
+export * from "./components/EditableSelectField";
 export { default as EditableSelectField } from "./components/EditableSelectField";
 export * from "./components/FilesUploader";
 export { default as FilesUploader } from "./components/FilesUploader";
@@ -17,7 +17,9 @@ export { default as FlexBox } from "./components/FlexBox";
 export { default as ImageCropper } from "./components/ImageCropper";
 export { default as Loader } from "./components/Loader";
 export { default as Modal } from "./components/Modal";
+export * from "./components/MultipleCheckboxesField";
 export { default as MultipleCheckboxesField } from "./components/MultipleCheckboxesField";
+export * from "./components/ReactTagsField";
 export { default as ReactTagsField } from "./components/ReactTagsField";
 export { default as SemiCircularProgress } from "./components/SemiCircularProgress";
 export { default as SemiCircularProgressWithLabel } from "./components/SemiCircularProgressWithLabel";

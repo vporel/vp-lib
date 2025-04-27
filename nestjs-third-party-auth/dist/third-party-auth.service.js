@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ThirdPartyAuthService = void 0;
 const common_1 = require("@nestjs/common");
-const third_party_auth_module_1 = require("./third-party-auth.module");
 const third_party_google_service_1 = require("./third-party.google.service");
 /**
  * @description Service for third-party authentication
@@ -49,6 +48,6 @@ let ThirdPartyAuthService = exports.ThirdPartyAuthService = class ThirdPartyAuth
 };
 exports.ThirdPartyAuthService = ThirdPartyAuthService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, common_1.Inject)(third_party_auth_module_1.APIS_CONFIG_KEY)),
+    __param(0, (0, common_1.Inject)("THIRD_PARTY_APIS_CONFIG")),
     __metadata("design:paramtypes", [Object, third_party_google_service_1.GoogleService])
 ], ThirdPartyAuthService);

@@ -1,6 +1,12 @@
 import { JwtService } from "@nestjs/jwt";
 import { IUserFinder } from "./user-finder.interface";
 import { AuthModuleOptions } from "./auth.module";
+import { ThirdPartyAuthService } from "@vporel/nestjs-third-party-auth";
+export declare class AuthMethodDto {
+    methodName: "email" | "google";
+    email?: string;
+    accessToken?: string;
+}
 export type AuthResult = {
     accessToken: string;
     expiresIn: number;
@@ -13,8 +19,9 @@ export declare class AuthService {
     private readonly authOptions;
     private userFinder;
     private jwtService;
-    constructor(authOptions: AuthModuleOptions, userFinder: IUserFinder, jwtService: JwtService);
-    emailExists(email: string): Promise<boolean>;
+    private thirdPartyAuthService;
+    constructor(authOptions: AuthModuleOptions, userFinder: IUserFinder, jwtService: JwtService, thirdPartyAuthService: ThirdPartyAuthService);
+    emailExists(emailOrAuthMethod: string | AuthMethodDto): Promise<boolean>;
     /**
      * @description Sign in with email only if the user has for example signed in with a third-party service
      * @param email
@@ -23,4 +30,5 @@ export declare class AuthService {
     signInWithEmailOnly(email: string): Promise<AuthResult>;
     signIn(email: string, password: string): Promise<AuthResult>;
     getAuthToken(user: any, UserClass: string): Promise<AuthResult>;
+    getEmailFromAuthMethod(authMethod: AuthMethodDto): Promise<string>;
 }

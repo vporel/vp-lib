@@ -19,7 +19,7 @@
   },
   "description": "",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@nestjs/common": "^11.0.10",
     "@nestjs/testing": "^11.0.10"
   }

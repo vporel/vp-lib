@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
-import { APIS_CONFIG_KEY, ApisConfig } from "./third-party-auth.module";
+import { ApisConfig } from "./third-party-auth.module";
 import { ThirdPartyService } from "./third-party.service.abs";
 import { GoogleService } from "./third-party.google.service";
 
@@ -14,7 +14,7 @@ export class ThirdPartyAuthService{
     services: Record<string, ThirdPartyService>
 
     constructor(
-        @Inject(APIS_CONFIG_KEY) readonly apis: ApisConfig,
+        @Inject("THIRD_PARTY_APIS_CONFIG") readonly apis: ApisConfig,
         googleService: GoogleService,
     ){
         this.services = {}

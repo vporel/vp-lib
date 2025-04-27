@@ -1,6 +1,5 @@
 import { GoogleService } from './third-party.google.service';
 import { ThirdPartyAuthService } from './third-party-auth.service';
-export declare const APIS_CONFIG_KEY = "APIS_CONFIG";
 export type ApisConfig = {
     google?: {
         clientId: string;
@@ -13,10 +12,10 @@ export type ThirdPartyAuthModuleOptions = {
 export declare class ThirdPartyAuthModule {
     static register(options: ThirdPartyAuthModuleOptions): {
         module: typeof ThirdPartyAuthModule;
-        providers: (typeof GoogleService | typeof ThirdPartyAuthService | {
+        providers: (typeof ThirdPartyAuthService | typeof GoogleService | {
             provide: string;
             useValue: ApisConfig;
         })[];
-        exports: (typeof GoogleService | typeof ThirdPartyAuthService)[];
+        exports: (typeof ThirdPartyAuthService | typeof GoogleService)[];
     };
 }

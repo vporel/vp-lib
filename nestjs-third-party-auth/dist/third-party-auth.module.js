@@ -7,18 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var ThirdPartyAuthModule_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ThirdPartyAuthModule = exports.APIS_CONFIG_KEY = void 0;
+exports.ThirdPartyAuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const third_party_google_service_1 = require("./third-party.google.service");
 const third_party_auth_service_1 = require("./third-party-auth.service");
-exports.APIS_CONFIG_KEY = "APIS_CONFIG";
 let ThirdPartyAuthModule = exports.ThirdPartyAuthModule = ThirdPartyAuthModule_1 = class ThirdPartyAuthModule {
     static register(options) {
         return {
             module: ThirdPartyAuthModule_1,
             providers: [
                 {
-                    provide: exports.APIS_CONFIG_KEY,
+                    provide: "THIRD_PARTY_APIS_CONFIG",
                     useValue: options.apis
                 },
                 third_party_auth_service_1.ThirdPartyAuthService,
@@ -29,5 +28,6 @@ let ThirdPartyAuthModule = exports.ThirdPartyAuthModule = ThirdPartyAuthModule_1
     }
 };
 exports.ThirdPartyAuthModule = ThirdPartyAuthModule = ThirdPartyAuthModule_1 = __decorate([
+    (0, common_1.Global)(),
     (0, common_1.Module)({})
 ], ThirdPartyAuthModule);

@@ -12,9 +12,34 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthService = void 0;
+exports.AuthService = exports.AuthMethodDto = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
+const class_validator_1 = require("class-validator");
+const nestjs_third_party_auth_1 = require("@vporel/nestjs-third-party-auth");
+class AuthMethodDto {
+    //only the email method can be used if the third-party-auth module is not enabled
+    methodName;
+    email;
+    accessToken;
+}
+exports.AuthMethodDto = AuthMethodDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(["email", "google"]),
+    __metadata("design:type", String)
+], AuthMethodDto.prototype, "methodName", void 0);
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.ValidateIf)(({ methodName }) => methodName == "email"),
+    __metadata("design:type", String)
+], AuthMethodDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.ValidateIf)(({ methodName }) => methodName == "google"),
+    __metadata("design:type", String)
+], AuthMethodDto.prototype, "accessToken", void 0);
 /**
  * @author Vivian NKOUANANG (https://github.com/vporel) <dev.vporel@gmail.com>
  */
@@ -22,12 +47,19 @@ let AuthService = exports.AuthService = class AuthService {
     authOptions;
     userFinder;
     jwtService;
-    constructor(authOptions, userFinder, jwtService) {
+    thirdPartyAuthService;
+    constructor(authOptions, userFinder, jwtService, thirdPartyAuthService) {
         this.authOptions = authOptions;
         this.userFinder = userFinder;
         this.jwtService = jwtService;
+        this.thirdPartyAuthService = thirdPartyAuthService;
     }
-    async emailExists(email) {
+    async emailExists(emailOrAuthMethod) {
+        let email = "";
+        if (typeof emailOrAuthMethod == "string")
+            email = emailOrAuthMethod;
+        else
+            email = await this.getEmailFromAuthMethod(emailOrAuthMethod);
         return !!(await this.userFinder.findByEmail(email));
     }
     /**
@@ -65,10 +97,21 @@ let AuthService = exports.AuthService = class AuthService {
             userType: UserClass.toLowerCase()
         };
     }
+    async getEmailFromAuthMethod(authMethod) {
+        if (authMethod.methodName == "email")
+            return authMethod.email;
+        else {
+            if (!this.thirdPartyAuthService)
+                throw new common_1.InternalServerErrorException("Third-party authentication not enabled");
+            return (await this.thirdPartyAuthService.getUserInfos(authMethod.methodName, authMethod.accessToken)).email;
+        }
+    }
 };
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)('AUTH_OPTIONS')),
     __param(1, (0, common_1.Inject)('USER_FINDER')),
-    __metadata("design:paramtypes", [Object, Object, jwt_1.JwtService])
+    __param(3, (0, common_1.Optional)()),
+    __metadata("design:paramtypes", [Object, Object, jwt_1.JwtService,
+        nestjs_third_party_auth_1.ThirdPartyAuthService])
 ], AuthService);

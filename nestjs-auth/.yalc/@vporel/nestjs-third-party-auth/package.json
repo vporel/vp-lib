@@ -19,9 +19,9 @@
   },
   "description": "",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@nestjs/common": "^11.0.10",
     "@nestjs/testing": "^11.0.10"
   },
-  "yalcSig": "0ea52fdf0a9bcaec07763fb15fe220f5"
+  "yalcSig": "c479019241769f01f4ca017955056ece"
 }

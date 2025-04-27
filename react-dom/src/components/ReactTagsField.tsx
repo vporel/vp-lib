@@ -2,8 +2,8 @@
 import { Box, FormLabel, Typography, alpha } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ReactTags } from "react-tag-autocomplete";
-import { SelectOption } from "./forms.types";
 import uniqid from "uniqid"
+import { SelectOption } from "./forms.types";
 
 export type ReactTagsFieldProps = {
     label?: string, name?: string, value?: any[], onChange?: (e: any) => void, 
@@ -17,14 +17,33 @@ export type ReactTagsFieldPropsWithOptions = ReactTagsFieldProps & {
 }
 
 export default function ReactTagsField({options, label, name, value, onChange, placeholder, error, helperText, rounded, exclude, onBlur, ...props}: ReactTagsFieldPropsWithOptions){
-    const [selectedTags, setSelectedTags] = useState<SelectOption[]>(options.filter(opt => value?.includes(opt.value)))
+    const [selectedTags, setSelectedTags] = useState<SelectOption[]>([])
     const _options = useMemo(() => {
-        if(!exclude) return options
-        else return options.filter(opt => !exclude.includes(opt.value))
+        let list: SelectOption[] = []
+        if(!exclude) list = [...options]
+        else list = options.filter(opt => !exclude.includes(opt.value))
+        if(value && Array.isArray(value)){
+            value.forEach(v => {
+                if(!list.find(o => o.value == v)) list.push({label: v, value: v})
+            })
+        }
+        return list
     }, [options, exclude])
 
     const onAdd = useCallback((newTag: any) => setSelectedTags((tags: SelectOption[])  => [...tags, newTag]), [])
     const onDelete = useCallback((tagIndex: number) => setSelectedTags((tags: SelectOption[]) => tags.filter((_, i) => i !== tagIndex)), [])
+
+    //Initialize selected tags
+    useEffect(() => {
+        if(!value) return
+        const selectedTags: SelectOption[] = []
+        value.forEach(v => {
+            const opt = options.find(opt => opt.value == v)
+            if(opt) selectedTags.push(opt)
+            else selectedTags.push({label: v, value: v})
+        })
+        setSelectedTags(selectedTags)
+    }, [])
 
     useEffect(() => {
         //Simulate fields change event
@@ -47,7 +66,7 @@ export default function ReactTagsField({options, label, name, value, onChange, p
         ".react-tags__label": {display: "none"},
         ".react-tags__list": {display: "inline", padding: 0},
         ".react-tags__list-item": {display: "inline", listStyle: "none"},
-        ".react-tags__tag": {margin: "0 .5rem .5rem 0", padding: ".375rem .5rem", border: 0, borderRadius: "3px", background: "#eaeef2", fontSize: "inherit", lineHeight: "inherit"},
+        ".react-tags__tag": {color: "rgb(50, 50, 50)", margin: "0 .5rem .5rem 0", padding: ".375rem .5rem", border: 0, borderRadius: "3px", background: "#eaeef2", fontSize: "inherit", lineHeight: "inherit", transition: "all .3s ease", cursor: "pointer"},
         ".react-tags__tag:hover": {color: "#fff", backgroundColor: theme => theme.palette.primary.main},
         ".react-tags__tag::after": {content:'""', display: "inline-block", width: ".65rem", height: ".65rem", clipPath: "polygon(10% 0,0 10%,40% 50%,0 90%,10% 100%,50% 60%,90% 100%,100% 90%,60% 50%,100% 10%,90% 0,50% 40%)", marginLeft: ".5rem", fontSize: ".875rem", backgroundColor: "#7c7d86"},
         ".react-tags__tag:hover:after": {backgroundColor:"#fff"},

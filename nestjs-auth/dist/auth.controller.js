@@ -19,33 +19,13 @@ const auth_guard_1 = require("./auth.guard");
 const auth_decorators_1 = require("./auth.decorators");
 const class_validator_1 = require("class-validator");
 const nestjs_third_party_auth_1 = require("@vporel/nestjs-third-party-auth");
-class AuthMethodDto {
-    methodName;
-    email;
-    accessToken;
-}
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsIn)(["email", "google"]),
-    __metadata("design:type", String)
-], AuthMethodDto.prototype, "methodName", void 0);
-__decorate([
-    (0, class_validator_1.IsEmail)(),
-    (0, class_validator_1.ValidateIf)(({ name }) => name == "email"),
-    __metadata("design:type", String)
-], AuthMethodDto.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.ValidateIf)(({ name }) => name == "google"),
-    __metadata("design:type", String)
-], AuthMethodDto.prototype, "accessToken", void 0);
-class SigninDto extends AuthMethodDto {
+class SigninDto extends auth_service_1.AuthMethodDto {
     password;
 }
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.ValidateIf)(({ name }) => name == "email"),
+    (0, class_validator_1.ValidateIf)(({ methodName }) => methodName == "email"),
     __metadata("design:type", String)
 ], SigninDto.prototype, "password", void 0);
 /**
@@ -60,16 +40,16 @@ let AuthController = exports.AuthController = class AuthController {
     }
     async emailExists(authMethod) {
         const email = await this.getEmailFromAuthMethod(authMethod);
-        return this.authService.emailExists(email);
+        return await this.authService.emailExists(email);
     }
     async signIn(data) {
         if (data.methodName = "email")
             return this.authService.signIn(data.email, data.password);
         else
-            this.authService.signInWithEmailOnly(await this.getEmailFromAuthMethod(data));
+            await this.authService.signInWithEmailOnly(await this.getEmailFromAuthMethod(data));
     }
     async extendToken(UserClass, user) {
-        return this.authService.getAuthToken(UserClass, user); //Reauthenticate
+        return await this.authService.getAuthToken(UserClass, user); //Reauthenticate
     }
     getCurrentUser(UserClass, user) {
         return {
@@ -92,7 +72,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [AuthMethodDto]),
+    __metadata("design:paramtypes", [auth_service_1.AuthMethodDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "emailExists", null);
 __decorate([

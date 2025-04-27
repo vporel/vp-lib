@@ -1,0 +1,23 @@
+{
+    "name": "@vporel/dom",
+    "version": "0.1.0",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "keywords": [
+      "vporel",
+      "typescript",
+      "vp-lib",
+      "dom"
+    ],
+    "author": "Vivian NKOUANANG",
+    "scripts": {
+      "build": "tsc"
+    },
+    "description": "",
+    "license": "MIT",
+    "dependencies": {
+      "compressorjs": "^1.2.1"
+    }
+  }
+  

@@ -6,7 +6,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const testing_1 = require("@nestjs/testing");
 const third_party_auth_service_1 = require("./third-party-auth.service");
-const third_party_auth_module_1 = require("./third-party-auth.module");
 const third_party_google_service_1 = require("./third-party.google.service");
 describe("third-party-auth.service", () => {
     let thirdPartyAuthService;
@@ -14,7 +13,7 @@ describe("third-party-auth.service", () => {
         const module = await testing_1.Test.createTestingModule({
             providers: [
                 {
-                    provide: third_party_auth_module_1.APIS_CONFIG_KEY,
+                    provide: "THIRD_PARTY_APIS_CONFIG",
                     useValue: {}
                 },
                 third_party_auth_service_1.ThirdPartyAuthService,

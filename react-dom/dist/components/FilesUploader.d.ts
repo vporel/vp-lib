@@ -1,5 +1,5 @@
 import { TypographyProps } from "@mui/material";
-import { FileUploadError } from "../classes/FileUploader";
+import { FileUploadError } from "@vporel/dom";
 export type FileData = {
     file: File;
     dataToUpload: File | Blob | null;

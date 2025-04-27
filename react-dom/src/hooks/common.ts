@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useState } from "react"
-import { useMediaQuery, useTheme } from "@mui/material"
 
 export function useBooleanState(defaultValue: boolean = false): [value: boolean, set: () => void, reset: () => void, toggle: () => void]{
     const [value, setValue] = useState(defaultValue)
@@ -44,15 +43,20 @@ function parseSearchParamsForFilters(keys: string[], searchParams: any, defaultF
     return values
 }
 
-export function useScreenSize(): {xs: boolean, sm: boolean, md: boolean, lg: boolean, xl: boolean}{
-    const theme = useTheme()
-    const xs = useMediaQuery(theme.breakpoints.down("sm"))
-    const sm = useMediaQuery(theme.breakpoints.between("sm", "md"))
-    const md = useMediaQuery(theme.breakpoints.between("md", "lg"))
-    const lg = useMediaQuery(theme.breakpoints.between("lg", "xl"))
-    const xl = useMediaQuery(theme.breakpoints.up("xl"))
+/**
+ * 
+ * @param breakpoints Breakpoints in pixels, each number is the minimum for the level, 
+ * @returns 
+ */
+export function useScreenSize(breakpoints: {sm: number, md: number, lg: number, xl: number, xxl: number} = {sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1400 }): {xs: boolean, sm: boolean, md: boolean, lg: boolean, xl: boolean, xxl: boolean}{
+    const xs = window.innerWidth < breakpoints.sm
+    const sm = !xs && window.innerWidth < breakpoints.md
+    const md = !sm && window.innerWidth < breakpoints.lg
+    const lg = !md && window.innerWidth < breakpoints.xl
+    const xl = !lg && window.innerWidth < breakpoints.xxl
+    const xxl = !xl 
 
-    return {xs, sm, md, lg, xl}
+    return {xs, sm, md, lg, xl, xxl}
 }
 
 /**

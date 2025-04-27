@@ -6,7 +6,7 @@ const material_1 = require("@mui/material");
 const react_1 = require("react");
 const Add_1 = require("@mui/icons-material/Add");
 const AddCircleOutline_1 = require("@mui/icons-material/AddCircleOutline");
-const FileUploader_1 = require("../classes/FileUploader");
+const dom_1 = require("@vporel/dom");
 const InsertDriveFile_1 = require("@mui/icons-material/InsertDriveFile");
 const PictureAsPdf_1 = require("@mui/icons-material/PictureAsPdf");
 const FlexBox_1 = require("./FlexBox");
@@ -41,7 +41,7 @@ function FilesUploader({ label = "Déposez vos fichiers ici", labelProps, compre
     const removeFile = (0, react_1.useCallback)((file) => {
         setFilesData(data => data.filter(fd => fd.file.name != file.name));
     }, []);
-    const fileUploader = (0, react_1.useMemo)(() => new FileUploader_1.default({
+    const fileUploader = (0, react_1.useMemo)(() => new dom_1.FileUploader({
         maxSize, extensions, compressImages,
         onStart: file => {
             setFilesData(d => [...d, { file, dataToUpload: null, src: null, progress: 0 }]);

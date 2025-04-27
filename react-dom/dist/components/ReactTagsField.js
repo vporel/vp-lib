@@ -7,15 +7,37 @@ const react_1 = require("react");
 const react_tag_autocomplete_1 = require("react-tag-autocomplete");
 const uniqid_1 = require("uniqid");
 function ReactTagsField({ options, label, name, value, onChange, placeholder, error, helperText, rounded, exclude, onBlur, ...props }) {
-    const [selectedTags, setSelectedTags] = (0, react_1.useState)(options.filter(opt => value?.includes(opt.value)));
+    const [selectedTags, setSelectedTags] = (0, react_1.useState)([]);
     const _options = (0, react_1.useMemo)(() => {
+        let list = [];
         if (!exclude)
-            return options;
+            list = [...options];
         else
-            return options.filter(opt => !exclude.includes(opt.value));
+            list = options.filter(opt => !exclude.includes(opt.value));
+        if (value && Array.isArray(value)) {
+            value.forEach(v => {
+                if (!list.find(o => o.value == v))
+                    list.push({ label: v, value: v });
+            });
+        }
+        return list;
     }, [options, exclude]);
     const onAdd = (0, react_1.useCallback)((newTag) => setSelectedTags((tags) => [...tags, newTag]), []);
     const onDelete = (0, react_1.useCallback)((tagIndex) => setSelectedTags((tags) => tags.filter((_, i) => i !== tagIndex)), []);
+    //Initialize selected tags
+    (0, react_1.useEffect)(() => {
+        if (!value)
+            return;
+        const selectedTags = [];
+        value.forEach(v => {
+            const opt = options.find(opt => opt.value == v);
+            if (opt)
+                selectedTags.push(opt);
+            else
+                selectedTags.push({ label: v, value: v });
+        });
+        setSelectedTags(selectedTags);
+    }, []);
     (0, react_1.useEffect)(() => {
         //Simulate fields change event
         if (onChange)
@@ -37,7 +59,7 @@ function ReactTagsField({ options, label, name, value, onChange, placeholder, er
             ".react-tags__label": { display: "none" },
             ".react-tags__list": { display: "inline", padding: 0 },
             ".react-tags__list-item": { display: "inline", listStyle: "none" },
-            ".react-tags__tag": { margin: "0 .5rem .5rem 0", padding: ".375rem .5rem", border: 0, borderRadius: "3px", background: "#eaeef2", fontSize: "inherit", lineHeight: "inherit" },
+            ".react-tags__tag": { color: "rgb(50, 50, 50)", margin: "0 .5rem .5rem 0", padding: ".375rem .5rem", border: 0, borderRadius: "3px", background: "#eaeef2", fontSize: "inherit", lineHeight: "inherit", transition: "all .3s ease", cursor: "pointer" },
             ".react-tags__tag:hover": { color: "#fff", backgroundColor: theme => theme.palette.primary.main },
             ".react-tags__tag::after": { content: '""', display: "inline-block", width: ".65rem", height: ".65rem", clipPath: "polygon(10% 0,0 10%,40% 50%,0 90%,10% 100%,50% 60%,90% 100%,100% 90%,60% 50%,100% 10%,90% 0,50% 40%)", marginLeft: ".5rem", fontSize: ".875rem", backgroundColor: "#7c7d86" },
             ".react-tags__tag:hover:after": { backgroundColor: "#fff" },

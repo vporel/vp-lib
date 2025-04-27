@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@vporel/dom": {
+      "signature": "b8cb8879c8ffa381c03477fa122b2a2c",
+      "file": true
+    }
+  }
+}

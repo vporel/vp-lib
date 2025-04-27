@@ -20,8 +20,8 @@ export type AuthModuleOptions = {
   usersRoles: string[]
 };
 
-@Module({})
 @Global()
+@Module({})
 export class AuthModule {
   static forRoot(options: AuthModuleOptions) {
     const imports = [
