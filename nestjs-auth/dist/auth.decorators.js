@@ -7,7 +7,7 @@ const SkipAuth = () => (0, common_1.SetMetadata)(exports.SKIP_AUTH_KEY, true);
 exports.SkipAuth = SkipAuth;
 exports.CurrentUserClass = (0, common_1.createParamDecorator)((data, context) => {
     const request = context.switchToHttp().getRequest();
-    return data ? request.UserClass?.[data] : request.UserClass;
+    return data ? request.userClass?.[data] : request.userClass;
 });
 exports.CurrentUser = (0, common_1.createParamDecorator)((data, context) => {
     const request = context.switchToHttp().getRequest();

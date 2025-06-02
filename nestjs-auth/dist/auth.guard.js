@@ -21,7 +21,7 @@ const roles_decorator_1 = require("./roles.decorator");
 /**
  * @author Vivian NKOUANANG (https://github.com/vporel) <dev.vporel@gmail.com>
  */
-let AuthGuard = exports.AuthGuard = class AuthGuard {
+let AuthGuard = class AuthGuard {
     reflector;
     jwtService;
     userFinder;
@@ -41,8 +41,8 @@ let AuthGuard = exports.AuthGuard = class AuthGuard {
         try {
             const payload = await this.jwtService.verifyAsync(token);
             const id = payload.sub;
-            request.UserClass = payload.UserClass;
-            request.user = await this.userFinder.findById(payload.UserClass, id);
+            request.userClass = payload.userClass;
+            request.user = await this.userFinder.findById(payload.userClass, id);
         }
         catch {
             throw new common_1.UnauthorizedException();
@@ -63,6 +63,7 @@ let AuthGuard = exports.AuthGuard = class AuthGuard {
         return type === "Bearer" ? token : undefined;
     }
 };
+exports.AuthGuard = AuthGuard;
 exports.AuthGuard = AuthGuard = __decorate([
     (0, common_1.Injectable)(),
     __param(2, (0, common_1.Inject)('USER_FINDER')),

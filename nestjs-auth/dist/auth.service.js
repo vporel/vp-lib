@@ -43,7 +43,7 @@ __decorate([
 /**
  * @author Vivian NKOUANANG (https://github.com/vporel) <dev.vporel@gmail.com>
  */
-let AuthService = exports.AuthService = class AuthService {
+let AuthService = class AuthService {
     authOptions;
     userFinder;
     jwtService;
@@ -54,13 +54,13 @@ let AuthService = exports.AuthService = class AuthService {
         this.jwtService = jwtService;
         this.thirdPartyAuthService = thirdPartyAuthService;
     }
-    async emailExists(emailOrAuthMethod) {
+    async getUserData(emailOrAuthMethod) {
         let email = "";
         if (typeof emailOrAuthMethod == "string")
             email = emailOrAuthMethod;
         else
             email = await this.getEmailFromAuthMethod(emailOrAuthMethod);
-        return !!(await this.userFinder.findByEmail(email));
+        return await this.userFinder.findByEmail(email);
     }
     /**
      * @description Sign in with email only if the user has for example signed in with a third-party service
@@ -69,32 +69,32 @@ let AuthService = exports.AuthService = class AuthService {
      */
     async signInWithEmailOnly(email) {
         if (!email)
-            throw new common_1.BadRequestException("The email is missing");
+            throw new common_1.BadRequestException("email_required: The email is missing");
         const result = await this.userFinder.findByEmail(email);
         if (!result || !result.user)
-            throw new common_1.NotFoundException("No user found with this email");
-        const { user, UserClass } = result;
-        return await this.getAuthToken(user, UserClass);
+            throw new common_1.NotFoundException("user_not_found: No user found with this email");
+        const { user, userClass } = result;
+        return await this.getAuthToken(user, userClass);
     }
     async signIn(email, password) {
         if (!email)
-            throw new common_1.BadRequestException("The userName or the email is missing");
+            throw new common_1.BadRequestException("email_required: The the email is missing");
         if (!password)
-            throw new common_1.BadRequestException("The password is missing");
+            throw new common_1.BadRequestException("password_required: The password is missing");
         const result = await this.userFinder.findByEmail(email);
         if (!result || !result.user)
-            throw new common_1.NotFoundException("No user found with this email");
-        const { user, UserClass } = result;
+            throw new common_1.NotFoundException("user_not_found: No user found with this email");
+        const { user, userClass } = result;
         if (!(await this.userFinder.comparePasswords(password, user.password)))
-            throw new common_1.UnauthorizedException("The password is incorrect");
-        return await this.getAuthToken(user, UserClass);
+            throw new common_1.UnauthorizedException("incorrect_password: The password is incorrect");
+        return await this.getAuthToken(user, userClass);
     }
-    async getAuthToken(user, UserClass) {
-        const payload = { sub: user["_id"], userName: user.userName, UserClass };
+    async getAuthToken(user, userClass) {
+        const payload = { sub: user["_id"], userName: user.userName, userClass };
         return {
             accessToken: await this.jwtService.signAsync(payload, { secret: this.authOptions.jwtSecretKey }),
-            expiresIn: parseInt(this.authOptions.jwtExpirationTime),
-            userType: UserClass.toLowerCase()
+            expiresIn: parseInt(this.authOptions.jwtExpirationTime), //In seconds,
+            userType: userClass.toLowerCase()
         };
     }
     async getEmailFromAuthMethod(authMethod) {
@@ -107,6 +107,7 @@ let AuthService = exports.AuthService = class AuthService {
         }
     }
 };
+exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)('AUTH_OPTIONS')),

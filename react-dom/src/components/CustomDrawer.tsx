@@ -17,8 +17,8 @@ export default function CustomDrawer(
 
     return <SwipeableDrawer 
         onOpen={onOpen ? onOpen : () => {}} anchor={screenSize.xs ? "bottom" : "right"} open={open} onClose={onClose}
-        PaperProps={{
-            sx: {pt: 1, borderRadius: {xs: "15px 15px 0 0", md: "15px 0 0 15px"}, overflowX: "hidden", ...paperSx}
+        slotProps={{
+            paper: {sx: {pt: 1, borderRadius: {xs: "15px 15px 0 0", md: "15px 0 0 15px"}, overflowX: "hidden", ...paperSx}}
         }}
     >
         <Box p={2.5} width={{xs: "100%", md: mdWidth ?? "600px"}} height="100%" sx={{position: "relative"}}>

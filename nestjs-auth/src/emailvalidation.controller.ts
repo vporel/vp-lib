@@ -57,9 +57,9 @@ export class EmailValidationController{
     @Post('/validate-email-code-with-user')
     @HttpCode(HttpStatus.OK)
     @UseGuards(AuthGuard)
-    async validateCodeWithUser(@Body() {email, code}: EmailAndCodeDto, @CurrentUserClass() UserClass, @CurrentUser() user){
+    async validateCodeWithUser(@Body() {email, code}: EmailAndCodeDto, @CurrentUserClass() userClass, @CurrentUser() user){
         if(this.authOptions.emailValidation?.byPass || this.testCode(email, code)){
-            return await this.userFinder.markEmailAsValidated(UserClass, user["_id"])
+            return await this.userFinder.markEmailAsValidated(userClass, user["_id"])
         }else
             throw new HttpException("Wrong code", HttpStatus.UNPROCESSABLE_ENTITY)
     }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from "react"
+import { useCallback, useState, useEffect } from "react"
 
 export function useBooleanState(defaultValue: boolean = false): [value: boolean, set: () => void, reset: () => void, toggle: () => void]{
     const [value, setValue] = useState(defaultValue)
@@ -20,43 +20,38 @@ export function useToggle(defaultValue: boolean = false): [value: boolean, toggl
     ]
 }
 
-type SearchFiltersOptions<K extends string> = {
-    transform?: {[key in K]: (val: any) => any},
-    transformToArray?: K[]                                //The keys to transform to array
-    transformToInteger?: K[]                                //The keys to transform to integer
-}
-
-function parseSearchParamsForFilters(keys: string[], searchParams: any, defaultFilters: any, options?: SearchFiltersOptions<any>){
-    const {transform, transformToArray, transformToInteger} = {...options}
-    const values: any = {page: searchParams.get("page") ?? 1}
-    for(const k of keys){
-        if(!searchParams.get(k)) values[k] = defaultFilters[k]
-        else{
-            if(transform) values[k] = 
-                transform[k](searchParams.get(k))
-            else if(transformToArray && transformToArray.includes(k))
-                values[k] = searchParams.get(k)?.split(',').filter((el: any) => el != "").map((el: any) => (transformToInteger && transformToInteger.includes(k)) ? parseInt(el) : el)
-            else if(transformToInteger && transformToInteger.includes(k))
-                values[k] = parseInt(searchParams.get(k) ?? "0")
-        }
-    }
-    return values
-}
-
 /**
  * 
  * @param breakpoints Breakpoints in pixels, each number is the minimum for the level, 
  * @returns 
  */
 export function useScreenSize(breakpoints: {sm: number, md: number, lg: number, xl: number, xxl: number} = {sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1400 }): {xs: boolean, sm: boolean, md: boolean, lg: boolean, xl: boolean, xxl: boolean}{
-    const xs = window.innerWidth < breakpoints.sm
-    const sm = !xs && window.innerWidth < breakpoints.md
-    const md = !sm && window.innerWidth < breakpoints.lg
-    const lg = !md && window.innerWidth < breakpoints.xl
-    const xl = !lg && window.innerWidth < breakpoints.xxl
-    const xxl = !xl 
+    const getSize = () => {
+        if (typeof window === 'undefined') return null;
+        const width = window.innerWidth;
+        return {
+          xs: width < breakpoints.sm,
+          sm: width >= breakpoints.sm && width < breakpoints.md,
+          md: width >= breakpoints.md && width < breakpoints.lg,
+          lg: width >= breakpoints.lg && width < breakpoints.xl,
+          xl: width >= breakpoints.xl && width < breakpoints.xxl,
+          xxl: width >= breakpoints.xxl,
+        };
+    };
+    const [size, setSize] = useState(getSize);
 
-    return {xs, sm, md, lg, xl, xxl}
+    useEffect(() => {
+        function handleResize() {
+          setSize(getSize());
+        }
+    
+        if (typeof window !== 'undefined') {
+          handleResize();
+          window.addEventListener('resize', handleResize);
+          return () => window.removeEventListener('resize', handleResize);
+        }
+      }, []);
+    return size ?? { xs: false, sm: false, md: false, lg: false, xl: false, xxl: false };
 }
 
 /**

@@ -6,6 +6,7 @@ import { AuthModuleOptions } from "./auth.module";
 import { IUserFinder } from "./user-finder.interface";
 import { ROLES_KEY } from "./roles.decorator";
 import { IUserRoles } from "./user-roles.interface";
+import { AuthPayload } from "./auth.service";
 
 
 /**
@@ -26,10 +27,9 @@ export class AuthGuard implements CanActivate{
         const token = this.extractTokenFromHeader(request)
         if(!token) throw new UnauthorizedException()
         try{
-            const payload = await this.jwtService.verifyAsync(token)
-            const id = payload.sub
-            request.UserClass = payload.UserClass
-            request.user = await this.userFinder.findById(payload.UserClass, id)
+            const payload: AuthPayload = await this.jwtService.verifyAsync(token)
+            request.userClass = payload.userClass
+            request.user = await this.userFinder.findById(payload.userClass, payload.userId)
         }catch{
             throw new UnauthorizedException()
         }

@@ -5,10 +5,10 @@ export const SkipAuth = () => SetMetadata(SKIP_AUTH_KEY, true)
 
 export const CurrentUserClass = createParamDecorator((data: string, context: ExecutionContext) => {
     const request = context.switchToHttp().getRequest();
-    return data ? request.UserClass?.[data] : request.UserClass;
+    return request.userClass;
 })
 
 export const CurrentUser = createParamDecorator((data: string, context: ExecutionContext) => {
     const request = context.switchToHttp().getRequest();
-    return data ? request.user?.[data] : request.user;
+    return request.user;
 })

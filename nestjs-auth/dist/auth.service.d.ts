@@ -21,7 +21,10 @@ export declare class AuthService {
     private jwtService;
     private thirdPartyAuthService;
     constructor(authOptions: AuthModuleOptions, userFinder: IUserFinder, jwtService: JwtService, thirdPartyAuthService: ThirdPartyAuthService);
-    emailExists(emailOrAuthMethod: string | AuthMethodDto): Promise<boolean>;
+    getUserData(emailOrAuthMethod: string | AuthMethodDto): Promise<{
+        user: any;
+        userClass: string;
+    } | null>;
     /**
      * @description Sign in with email only if the user has for example signed in with a third-party service
      * @param email
@@ -29,6 +32,6 @@ export declare class AuthService {
      */
     signInWithEmailOnly(email: string): Promise<AuthResult>;
     signIn(email: string, password: string): Promise<AuthResult>;
-    getAuthToken(user: any, UserClass: string): Promise<AuthResult>;
+    getAuthToken(user: any, userClass: string): Promise<AuthResult>;
     getEmailFromAuthMethod(authMethod: AuthMethodDto): Promise<string>;
 }

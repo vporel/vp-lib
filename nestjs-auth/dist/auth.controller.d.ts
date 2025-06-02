@@ -10,10 +10,12 @@ export declare class AuthController {
     private authService;
     private thirdPartyAuthService;
     constructor(authService: AuthService, thirdPartyAuthService: ThirdPartyAuthService);
-    emailExists(authMethod: AuthMethodDto): Promise<boolean>;
+    emailExists(authMethod: AuthMethodDto): Promise<{
+        userType: string;
+    } | false>;
     signIn(data: SigninDto): Promise<AuthResult>;
-    extendToken(UserClass: any, user: any): Promise<AuthResult>;
-    getCurrentUser(UserClass: any, user: any): {
+    extendToken(userClass: any, user: any): Promise<AuthResult>;
+    getCurrentUser(userClass: any, user: any): {
         user: any;
         userType: string;
     };

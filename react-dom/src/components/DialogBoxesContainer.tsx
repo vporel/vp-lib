@@ -6,11 +6,11 @@ import ButtonWithLoading from "./ButtonWithLoading";
 type DialogParams = {
     title?: string, 
     detail: string, 
-    onValidate: () => boolean, 
+    onValidate: () => Promise<boolean>, 
     validateButton?: {
         label?: string
     },
-    onCancel?: () => void,
+    onCancel?: () => Promise<void>,
     cancelButton?: {
         label?: string
     },

@@ -16,7 +16,7 @@ const emailvalidation_controller_1 = require("./emailvalidation.controller");
 const nestjs_third_party_auth_1 = require("@vporel/nestjs-third-party-auth");
 const auth_guard_1 = require("./auth.guard");
 const secured_properties_guard_1 = require("./secured-properties.guard");
-let AuthModule = exports.AuthModule = AuthModule_1 = class AuthModule {
+let AuthModule = AuthModule_1 = class AuthModule {
     static forRoot(options) {
         const imports = [
             jwt_1.JwtModule.registerAsync({
@@ -47,7 +47,8 @@ let AuthModule = exports.AuthModule = AuthModule_1 = class AuthModule {
         };
     }
 };
+exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = AuthModule_1 = __decorate([
-    (0, common_1.Module)({}),
-    (0, common_1.Global)()
+    (0, common_1.Global)(),
+    (0, common_1.Module)({})
 ], AuthModule);

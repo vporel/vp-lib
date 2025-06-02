@@ -33,6 +33,7 @@ export class AuthModule {
         })  
       }),
     ]
+    
     if(options.thirdPartyAuthOptions)imports.push(ThirdPartyAuthModule.register(options.thirdPartyAuthOptions))
 
     const controllers: any[] = [AuthController]

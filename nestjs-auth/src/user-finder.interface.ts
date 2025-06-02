@@ -6,15 +6,15 @@
 
 export interface IUserFinder{
     /**
-     * @param UserClass The name of the user class
+     * @param userClass The name of the user class
      * @param id The id of the user to find
      */
-    findById(UserClass: string, id: string): Promise<any|null>;
+    findById(userClass: string, id: string): Promise<any|null>;
 
     /**
      * @param email The email of the user to find
      */
-    findByEmail(email: string): Promise<{user: any, UserClass: string}|null>;
+    findByEmail(email: string): Promise<{user: any, userClass: string}|null>;
 
     /**
      * @param password The password in real text provided by the user
@@ -24,8 +24,8 @@ export interface IUserFinder{
     comparePasswords(password: string, hash: string): Promise<boolean>;
 
     /**
-     * @param UserClass The name of the user class
+     * @param userClass The name of the user class
      * @param id The id of the user to find
      */
-    markEmailAsValidated(UserClass: string, id: string): Promise<boolean>;
+    markEmailAsValidated(userClass: string, id: string): Promise<boolean>;
 }

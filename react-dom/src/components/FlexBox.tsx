@@ -6,7 +6,7 @@ import { CustomBoxProps } from "./types";
 const FlexBox = forwardRef(function<C extends React.ElementType = 'div'>(
     {children, fullSize, between, around, end, center, centerHorizontal, centerVertical, wrap, justifyContent, alignItems, column, flexDirection, flexWrap, width, height, ...props}: 
     CustomBoxProps<C> & {fullSize?: boolean, between?: boolean, around?: boolean, end?: boolean, center?: boolean, centerHorizontal?: boolean, centerVertical?: boolean, column?: boolean, wrap?: boolean},
-    ref?: ForwardedRef<HTMLElement>
+    ref: ForwardedRef<HTMLElement>
 ){
     return <Box 
         ref={ref}
@@ -20,5 +20,7 @@ const FlexBox = forwardRef(function<C extends React.ElementType = 'div'>(
         {...props}
     >{children}</Box>
 })
+
+FlexBox.displayName = "FlexBox"
 
 export default FlexBox

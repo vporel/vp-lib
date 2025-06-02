@@ -28,8 +28,23 @@ export type AuthResult = {
 }
 
 
+export class SigninDto extends AuthMethodDto{
+
+    @IsString()
+    @IsNotEmpty()
+    @ValidateIf(({methodName}) => methodName == "email")
+    password?: string
+}
+
+export type AuthPayload = {
+    userId: string 
+    userClass: string 
+}
+
 /**
  * @author Vivian NKOUANANG (https://github.com/vporel) <dev.vporel@gmail.com>
+ * 
+ * Some parameters in functions are not validated, this is because the validation either by the controller or by class-validator
  */
 @Injectable()
 export class AuthService{
@@ -37,15 +52,24 @@ export class AuthService{
         @Inject('AUTH_OPTIONS') private readonly authOptions: AuthModuleOptions,
         @Inject('USER_FINDER') private userFinder: IUserFinder,
         private jwtService: JwtService,
-        @Optional()
-        private thirdPartyAuthService: ThirdPartyAuthService
+        @Optional() private thirdPartyAuthService: ThirdPartyAuthService
     ){}
 
-    async emailExists(emailOrAuthMethod: string|AuthMethodDto): Promise<boolean>{
-        let email = ""
+    async getUserData(emailOrAuthMethod: string|AuthMethodDto): Promise<{user: any, userClass: string}|null>{
+        let email
         if(typeof emailOrAuthMethod == "string") email = emailOrAuthMethod
         else email = await this.getEmailFromAuthMethod(emailOrAuthMethod)
-        return !!(await this.userFinder.findByEmail(email))
+        return await this.userFinder.findByEmail(email)
+    }
+
+    async signIn(signinData: SigninDto): Promise<AuthResult>{
+        const email = await this.getEmailFromAuthMethod(signinData)
+        const password = signinData.password
+        const result = await this.userFinder.findByEmail(email)
+        if(!result || !result.user) throw new NotFoundException("user_not_found: No user found with this email")
+        const {user, userClass} = result
+        if(signinData.methodName == "email" && !(await this.userFinder.comparePasswords(password, user.password))) throw new UnauthorizedException("incorrect_password: The password is incorrect")
+        return await this.getAuthToken(user, userClass)
     }
 
     /**
@@ -54,29 +78,19 @@ export class AuthService{
      * @returns 
      */
     async signInWithEmailOnly(email: string): Promise<AuthResult>{
-        if(!email) throw new BadRequestException("The email is missing")
+        if(!email) throw new BadRequestException("email_required: The email is missing")
         const result = await this.userFinder.findByEmail(email)
-        if(!result || !result.user) throw new NotFoundException("No user found with this email")
-        const {user, UserClass} = result
-        return await this.getAuthToken(user, UserClass)
+        if(!result || !result.user) throw new NotFoundException("user_not_found: No user found with this email")
+        const {user, userClass} = result
+        return await this.getAuthToken(user, userClass)
     }
 
-    async signIn(email: string, password: string): Promise<AuthResult>{
-        if(!email) throw new BadRequestException("The userName or the email is missing")
-        if(!password) throw new BadRequestException("The password is missing")
-        const result = await this.userFinder.findByEmail(email)
-        if(!result || !result.user) throw new NotFoundException("No user found with this email")
-        const {user, UserClass} = result
-        if(!(await this.userFinder.comparePasswords(password, user.password))) throw new UnauthorizedException("The password is incorrect")
-        return await this.getAuthToken(user, UserClass)
-    }
-
-    async getAuthToken(user: any, UserClass: string): Promise<AuthResult>{
-        const payload = {sub: user["_id"], userName: user.userName, UserClass}
+    async getAuthToken(user: any, userClass: string): Promise<AuthResult>{
+        const payload: AuthPayload = {userId: user["_id"], userClass}
         return {
             accessToken: await this.jwtService.signAsync(payload, {secret: this.authOptions.jwtSecretKey}),
             expiresIn: parseInt(this.authOptions.jwtExpirationTime),    //In seconds,
-            userType: UserClass.toLowerCase()
+            userType: userClass.toLowerCase()
         }
     }
 

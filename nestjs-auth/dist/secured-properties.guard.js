@@ -20,7 +20,7 @@ const core_2 = require("@vporel/core");
 /**
  * Can be used to force the user to provide a password to update some properties
  */
-let SecuredPropertiesGuard = exports.SecuredPropertiesGuard = class SecuredPropertiesGuard {
+let SecuredPropertiesGuard = class SecuredPropertiesGuard {
     reflector;
     userFinder;
     constructor(reflector, userFinder) {
@@ -49,6 +49,7 @@ let SecuredPropertiesGuard = exports.SecuredPropertiesGuard = class SecuredPrope
         return testOk;
     }
 };
+exports.SecuredPropertiesGuard = SecuredPropertiesGuard;
 exports.SecuredPropertiesGuard = SecuredPropertiesGuard = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, common_1.Inject)('USER_FINDER')),

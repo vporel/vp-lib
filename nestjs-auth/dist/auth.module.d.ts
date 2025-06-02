@@ -19,7 +19,7 @@ export declare class AuthModule {
     static forRoot(options: AuthModuleOptions): {
         module: typeof AuthModule;
         imports: import("@nestjs/common").DynamicModule[];
-        providers: (typeof AuthGuard | typeof AuthService | typeof SecuredPropertiesGuard | {
+        providers: (typeof AuthGuard | typeof SecuredPropertiesGuard | typeof AuthService | {
             provide: string;
             useValue: AuthModuleOptions;
             useClass?: undefined;

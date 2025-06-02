@@ -6,8 +6,8 @@ import uniqid from "uniqid"
 import { SelectOption } from "./forms.types";
 
 export type ReactTagsFieldProps = {
-    label?: string, name?: string, value?: any[], onChange?: (e: any) => void, 
-    placeholder?: string, error?: boolean, helperText?: string, rounded?: boolean,
+    label?: string, name?: string, value?: any[], onChange?: (e: any) => void, required?: boolean, fullWidth?: boolean,
+    placeholder?: string, error?: boolean, helperText?: string, rounded?: boolean, className?: string,
     allowNew?: boolean, newOptionText?: string, onBlur?: (e: any) => void,
     exclude?: any[]
 }
@@ -16,7 +16,7 @@ export type ReactTagsFieldPropsWithOptions = ReactTagsFieldProps & {
     options: SelectOption[]
 }
 
-export default function ReactTagsField({options, label, name, value, onChange, placeholder, error, helperText, rounded, exclude, onBlur, ...props}: ReactTagsFieldPropsWithOptions){
+export default function ReactTagsField({options, label, name, value, onChange, required, fullWidth, placeholder, error, helperText, rounded, className, exclude, onBlur, ...props}: ReactTagsFieldPropsWithOptions){
     const [selectedTags, setSelectedTags] = useState<SelectOption[]>([])
     const _options = useMemo(() => {
         let list: SelectOption[] = []
@@ -55,10 +55,10 @@ export default function ReactTagsField({options, label, name, value, onChange, p
         })
     }, [selectedTags])
 
-    return  <Box sx={{
+    return  <Box className={className} sx={{
         ".react-tags": {
             position: "relative", padding: "0.8rem 1rem 0.3rem 1rem",  border: "1px solid #afb8c1", background: "#fff", lineHeight: "1.2", cursor: "text",
-            borderRadius: rounded ? "30px" : "5px"
+            borderRadius: rounded ? "30px" : "5px", width: fullWidth ? "100%" : "auto"
         },
         ".react-tags.is-active": {borderColor: theme => theme.palette.primary.main},
         ".react-tags.is-disabled": {opacity: .75, backgroundColor: "#eaeef2", pointerEvents: "none", cursor: "not-allowed"},

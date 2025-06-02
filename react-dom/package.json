@@ -4,6 +4,11 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
   "keywords": [
     "vporel",
     "typescript",
@@ -15,20 +20,21 @@
   ],
   "author": "Vivian NKOUANANG",
   "scripts": {
-    "build": "tsc"
+    "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist --minify --clean --treeshake --no-splitting"
   },
   "description": "",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^19.0.0",
     "@mui/icons-material": "^6.4.6",
     "@mui/material": "^6.4.6",
-    "formik": "^2.4.6"
+    "formik": "^2.4.6",
+    "react": "^19.0.0"
   },
   "dependencies": {
     "@vporel/dom": "file:.yalc/@vporel/dom",
     "cropperjs": "^1.6.2",
     "react-tag-autocomplete": "^7.5.0",
+    "tsup": "^8.4.0",
     "uniqid": "^5.4.0"
   }
 }

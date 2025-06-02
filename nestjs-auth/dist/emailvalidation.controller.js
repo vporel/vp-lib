@@ -38,7 +38,7 @@ __decorate([
 /**
  * @author Vivian NKOUANANG (https://github.com/vporel) <dev.vporel@gmail.com>
  */
-let EmailValidationController = exports.EmailValidationController = class EmailValidationController {
+let EmailValidationController = class EmailValidationController {
     mailerService;
     authOptions;
     userFinder;
@@ -65,9 +65,9 @@ let EmailValidationController = exports.EmailValidationController = class EmailV
         else
             throw new common_1.HttpException("Wrong code", common_1.HttpStatus.UNPROCESSABLE_ENTITY);
     }
-    async validateCodeWithUser({ email, code }, UserClass, user) {
+    async validateCodeWithUser({ email, code }, userClass, user) {
         if (this.authOptions.emailValidation?.byPass || this.testCode(email, code)) {
-            return await this.userFinder.markEmailAsValidated(UserClass, user["_id"]);
+            return await this.userFinder.markEmailAsValidated(userClass, user["_id"]);
         }
         else
             throw new common_1.HttpException("Wrong code", common_1.HttpStatus.UNPROCESSABLE_ENTITY);
@@ -84,6 +84,7 @@ let EmailValidationController = exports.EmailValidationController = class EmailV
         return !!this.SAVED_CODES.find(el => el.email == email && el.code == code);
     }
 };
+exports.EmailValidationController = EmailValidationController;
 __decorate([
     (0, common_1.Post)('/send-email-validation-code'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),

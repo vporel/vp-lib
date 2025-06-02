@@ -31,7 +31,7 @@ __decorate([
 /**
  * @author Vivian NKOUANANG (https://github.com/vporel) <dev.vporel@gmail.com>
  */
-let AuthController = exports.AuthController = class AuthController {
+let AuthController = class AuthController {
     authService;
     thirdPartyAuthService;
     constructor(authService, thirdPartyAuthService) {
@@ -40,21 +40,22 @@ let AuthController = exports.AuthController = class AuthController {
     }
     async emailExists(authMethod) {
         const email = await this.getEmailFromAuthMethod(authMethod);
-        return await this.authService.emailExists(email);
+        const userData = await this.authService.getUserData(email);
+        return userData ? { userType: userData.userClass.toLowerCase() } : false;
     }
     async signIn(data) {
-        if (data.methodName = "email")
+        if (data.methodName == "email")
             return this.authService.signIn(data.email, data.password);
         else
-            await this.authService.signInWithEmailOnly(await this.getEmailFromAuthMethod(data));
+            return await this.authService.signInWithEmailOnly(await this.getEmailFromAuthMethod(data));
     }
-    async extendToken(UserClass, user) {
-        return await this.authService.getAuthToken(UserClass, user); //Reauthenticate
+    async extendToken(userClass, user) {
+        return await this.authService.getAuthToken(userClass, user); //Reauthenticate
     }
-    getCurrentUser(UserClass, user) {
+    getCurrentUser(userClass, user) {
         return {
             user,
-            userType: UserClass.toLowerCase()
+            userType: userClass
         };
     }
     async getEmailFromAuthMethod(authMethod) {
@@ -67,6 +68,7 @@ let AuthController = exports.AuthController = class AuthController {
         }
     }
 };
+exports.AuthController = AuthController;
 __decorate([
     (0, common_1.Post)('/email-exists'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),

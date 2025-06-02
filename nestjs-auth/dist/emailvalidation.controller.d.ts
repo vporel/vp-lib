@@ -18,7 +18,7 @@ export declare class EmailValidationController {
     constructor(mailerService: MailerService, authOptions: AuthModuleOptions, userFinder: IUserFinder);
     sendEmailValidationCode({ email }: EmailDto): Promise<boolean>;
     validateCode({ email, code }: EmailAndCodeDto): Promise<boolean>;
-    validateCodeWithUser({ email, code }: EmailAndCodeDto, UserClass: any, user: any): Promise<boolean>;
+    validateCodeWithUser({ email, code }: EmailAndCodeDto, userClass: any, user: any): Promise<boolean>;
     private generateRandomCode;
     private saveCode;
     private testCode;
